@@ -28,9 +28,20 @@ class Solution:
             taken = [True for i in range(numCourses)]
 
             # find courses with no prerequisites
+            # find edges in/out
+            edges_in = {}
+            edges_out = {}
+            
+            for i in range(numCourses):
+                edges_in[i] = []
+                edges_out[i] = []
+
             for pp in prerequisites:
                 taken[pp[0]] = False
-           
+                
+                edges_in[pp[0]].append(pp[1])
+                edges_out[pp[1]].append(pp[0])
+
             p = []
             
             for i in range(numCourses):
@@ -42,43 +53,33 @@ class Solution:
             
             res = [] + p
             for i in p:
-                res += self.bfs(numCourses, i, taken, prerequisites)
+                res += self.bfs(numCourses, i, taken, edges_in, edges_out)
             
             if all(taken):
                 return res
             else:
                 return []
 
-    def bfs(self, numCourses, i, taken, prerequisites):
+    def bfs(self, numCourses, i, taken, edges_in, edges_out):
         
         q = [i]
         res = []
         
         while len(q) != 0:
             cc = q.pop()
+            for ii in edges_out[cc]:
+                if not taken[ii]:
+                    tt = True
+                    for jj in edges_in[ii]:
+                        if not taken[jj]:
+                            tt = False
+                            break
 
-            tt = {}
-            
-            for pp in prerequisites:
-                if not taken[pp[0]]:
-                    if pp[1] == cc:
-                        if tt.has_key(pp[0]):
-                            tt[pp[0]] = True and tt[pp[0]]
-                        else:
-                            tt[pp[0]] = True
-                    else:
-                        if tt.has_key(pp[0]):
-                            if taken[pp[1]]:
-                                tt[pp[0]] = True and tt[pp[0]]
-                            else:
-                                tt[pp[0]] = False and tt[pp[0]]
-
-            for i in tt:
-                if tt[i]:
-                    taken[i] = True
-                    res.append(i)
-                    q.append(i)
-
+                    if tt:
+                        taken[ii] = True
+                        res.append(ii)
+                        q.append(ii)
+                    
         return res
 
 if __name__ == '__main__':
