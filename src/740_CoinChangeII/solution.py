@@ -19,23 +19,19 @@ class Solution:
     """
     def change(self, amount, coins):
         # write your code here
-        counts = [0]
-        self.helper(amount, coins, counts)
+        
+        if amount == 0:
+            return 0
 
-        return counts[0]
-    
-    def helper(self, amount, coins, counts):
-        if amount > 0:
-            for i in range(len(coins)):
-                if coins[i] == amount:
-                    counts[0] += 1
-                elif coins[i] < amount:
-                    self.helper(amount - coins[i], coins[i:], counts)
+        dp = []
+        
+        for i in range(len(amount)):
+            
+
 
 if __name__ == '__main__':
-    amount = 8
-    coins = [2, 3, 8]
-    
+    amount = 123
+    coins = [2,3,8]
     s = Solution()
     print s.change(amount, coins)
     

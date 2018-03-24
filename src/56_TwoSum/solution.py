@@ -19,48 +19,56 @@ class Solution:
     @param target: target = numbers[index1] + numbers[index2]
     @return: [index1 + 1, index2 + 1] (index1 < index2)
     """
+#    def twoSum(self, numbers, target):
+#        # write your code here
+#
+#        snums = sorted(numbers)
+#        index = sorted(range(len(numbers)), key=lambda k: numbers[k])
+#
+#        for i in xrange(len(snums)):
+#
+#            first = i + 1
+#            last = len(snums) - 1
+#
+#            while first + 1 < last:
+#                mid = first + (last - first) / 2
+#                
+#                if snums[i] + snums[mid] == target:
+#                    index1, index2 = index[i], index[mid] 
+#
+#                    if index1 < index2:
+#                        return index1, index2
+#                    else:
+#                        return index2, index1
+#
+#                elif snums[i] + snums[mid] >= target:
+#                    last = mid
+#                else:
+#                    first = mid
+#
+#            if snums[i] + snums[first] == target:
+#                index1, index2 = index[i], index[first]
+#
+#                if index1 < index2:
+#                    return index1, index2
+#                else:
+#                    return index2, index1
+#
+#            elif snums[i] + snums[last] == target:
+#                index1, index2 = index[i], index[last]
+#
+#                if index1 < index2:
+#                    return index1, index2
+#                else:
+#                    return index2, index1
+
     def twoSum(self, numbers, target):
-        # write your code here
+        dd = {}
 
-        snums = sorted(numbers)
-        index = sorted(range(len(numbers)), key=lambda k: numbers[k])
-
-        for i in xrange(len(snums)):
-
-            first = i + 1
-            last = len(snums) - 1
-
-            while first + 1 < last:
-                mid = first + (last - first) / 2
-                
-                if snums[i] + snums[mid] == target:
-                    index1, index2 = index[i], index[mid] 
-
-                    if index1 < index2:
-                        return index1, index2
-                    else:
-                        return index2, index1
-
-                elif snums[i] + snums[mid] >= target:
-                    last = mid
-                else:
-                    first = mid
-
-            if snums[i] + snums[first] == target:
-                index1, index2 = index[i], index[first]
-
-                if index1 < index2:
-                    return index1, index2
-                else:
-                    return index2, index1
-
-            elif snums[i] + snums[last] == target:
-                index1, index2 = index[i], index[last]
-
-                if index1 < index2:
-                    return index1, index2
-                else:
-                    return index2, index1
+        for i in xrange(len(numbers)):
+            if target - numbers[i] in dd:
+                return dd[target - numbers[i]], i
+            dd[numbers[i]] = i
 
 if __name__ == '__main__':
     sol = Solution()
